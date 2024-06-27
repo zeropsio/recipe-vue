@@ -1,0 +1,138 @@
+
+<script setup>
+import codeBlock from '@wdns/vue-code-block';
+import {ref} from "vue";
+
+const project = ref(`project:
+  name: recipe-vue
+  tags:
+    - zerops-recipe
+
+services:
+  - hostname: app
+    type: static@1.0
+    enableSubdomainAccess: true
+    buildFromGit: https://github.com/zeropsio/recipe-vue
+    `);
+
+const zerops = ref(`zerops:
+  - setup: app
+    build:
+      base: nodejs@20
+      buildCommands:
+        - pnpm i
+        - pnpm build
+      deployFiles:
+        - dist/~
+      cache:
+        - node_modules
+        - pnpm-lock.yaml
+    run:
+      base: static`);
+
+</script>
+
+<template>
+  <p>
+    <div
+        class="steps grid grid-cols-1 md:grid-cols-2 font-light gap-5 pt-4 items-center mx-auto"
+    >
+      <div class="px-4 md:px-0 justify-center max-md:flex max-md:flex-col h-full">
+        <div class="flex flex-col space-y-3">
+          <codeBlock
+              :code="project"
+              highlightjs
+              label="zerops-project-import.yml"
+              lang="yaml"
+              theme="default"
+          />
+          <div
+              class="flex flex-col py-10 h-[260px] rounded-md gap-5 px-10 bg-[#25292E] border border-solid border-[#1C1F23] shadow-md"
+          >
+            <a
+                href="https://github.com/zeropsio/recipe-vue/"
+                target="_blank"
+                class="primarybutton rounded-full text-center text-md duration-300"
+            >Recipe Source Code</a
+            > <a
+              href="https://discord.com/invite/WDvCZ54"
+              target="_blank"
+              class="discordbutton rounded-full text-center text-md duration-300"
+          >Discord</a
+          > <a
+              href="https://docs.zerops.io"
+              target="_blank"
+              class="zeropsbutton rounded-full text-center text-md duration-300"
+          >Documentation</a
+          >
+          </div>
+        </div>
+      </div>
+      <div class="h-full">
+        <codeBlock
+            :code="zerops"
+            highlightjs
+            label="zerops.yml"
+            lang="yaml"
+            theme="default"
+        />
+      </div>
+    </div>
+  </p>
+</template>
+<style>
+.steps {
+  width: 1000px;
+  max-width: calc(100% - 2rem);
+}
+
+.codetext {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.primarybutton {
+  background-color: #2f3337;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-weight: 500;
+  color: #e2e4e8;
+  transition: 300ms;
+}
+
+.primarybutton:hover {
+  background-color: #282c30;
+}
+
+.discordbutton {
+  background-color: #3a3e44;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-weight: 500;
+  color: #fff;
+  transition: 300ms;
+}
+
+.discordbutton:hover {
+  background-color: #2f3337;
+}
+
+.zeropsbutton {
+  background-color: #424146;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-weight: 500;
+  color: #e2e4e8;
+  transition: 300ms;
+}
+
+.zeropsbutton:hover {
+  background-color: #36393e;
+}
+</style>

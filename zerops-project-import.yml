@@ -1,0 +1,10 @@
+project:
+  name: recipe-vue
+  tags:
+    - zerops-recipe
+
+services:
+  - hostname: app
+    type: static@1.0
+    enableSubdomainAccess: true
+    buildFromGit: https://github.com/zeropsio/recipe-vue
